@@ -42,23 +42,23 @@ def aaa(F, Z, **kwargs):
         J[ix] = False
         C[J,m] = 1 / (Z[J] - zj[m])
 
-        A = SF[J] * C[J,0:m+1] - C[J,0:m+1] * fj[0:m+1]
+        A = SF[J] * C[J,:m+1] - C[J,:m+1] * fj[:m+1]
         _, _, Vh = la.svd(A)
         wj = np.conj(Vh[m,:])
 
         N = np.copy(F.astype(complex))
         D = np.ones(M, dtype=complex)
-        N[J] = C[J,0:m+1] @ (fj[0:m+1] * wj)
-        D[J] = C[J,0:m+1] @ wj
+        N[J] = C[J,:m+1] @ (fj[:m+1] * wj)
+        D[J] = C[J,:m+1] @ wj
         R = N / D
 
         errvec[m] = la.norm(F - R, ord=np.inf)
         if errvec[m] <= reltol:
             break
 
-    errvec = errvec[0:m+1]
-    zj = zj[0:m+1]
-    fj = fj[0:m+1]
+    errvec = errvec[:m+1]
+    zj = zj[:m+1]
+    fj = fj[:m+1]
 
     if cleanup:
         r = BaryFun(zj, fj, wj)
