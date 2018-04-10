@@ -23,15 +23,15 @@ def aaa(F, Z, **kwargs):
 
     reltol = tol * la.norm(F, ord=np.inf)
     M = len(Z)
-    C = np.zeros((M, mmax))
-    SF = np.reshape(np.copy(F), (-1,1))
+    C = np.zeros((M, mmax), dtype=complex)
+    SF = np.reshape(np.copy(F.astype(complex)), (-1,1))
     J = np.full(M, True)
-    R = np.mean(F) * np.ones(M)
+    R = np.mean(F) * np.ones(M, dtype=complex)
 
     errvec = np.zeros(mmax)
-    zj = np.zeros(mmax)
-    fj = np.zeros(mmax)
-    wj = np.zeros(mmax)
+    zj = np.zeros(mmax, dtype=complex)
+    fj = np.zeros(mmax, dtype=complex)
+    wj = np.zeros(mmax, dtype=complex)
 
     for m in range(mmax):
         err = abs(F - R)
@@ -46,8 +46,8 @@ def aaa(F, Z, **kwargs):
         _, _, Vh = la.svd(A)
         wj = np.conj(Vh[m,:])
 
-        N = np.copy(F)
-        D = np.ones(M)
+        N = np.copy(F.astype(complex))
+        D = np.ones(M, dtype=complex)
         N[J] = C[J,0:m+1] @ (fj[0:m+1] * wj)
         D[J] = C[J,0:m+1] @ wj
         R = N / D

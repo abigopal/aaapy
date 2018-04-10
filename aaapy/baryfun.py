@@ -3,12 +3,12 @@ import scipy.linalg as la
 
 class BaryFun:
     m = 0
-    zj = np.array([])
-    fj = np.array([])
-    wj = np.array([])
-    _pol = np.array([])
-    _res = np.array([])
-    _zer = np.array([])
+    zj = np.array([], dtype=complex)
+    fj = np.array([], dtype=complex)
+    wj = np.array([], dtype=complex)
+    _pol = np.array([], dtype=complex)
+    _res = np.array([], dtype=complex)
+    _zer = np.array([], dtype=complex)
     
     def __init__(self, zj, fj, wj):
         m = len(zj)
@@ -26,9 +26,9 @@ class BaryFun:
             m = self.m
             zj = self.zj
             wj = self.wj
-            B = np.identity(m+1)
+            B = np.identity(m+1, dtype=complex)
             B[0,0] = 0
-            A = np.zeros((m+1, m+1))
+            A = np.zeros((m+1, m+1), dtype=complex)
             A[0,1:] = wj
             A[1:,0] = 1
             np.fill_diagonal(A[1:,1:], zj)
@@ -42,9 +42,9 @@ class BaryFun:
             zj = self.zj
             fj = self.fj
             wj = self.wj
-            B = np.identity(m+1)
+            B = np.identity(m+1, dtype=complex)
             B[0,0] = 0
-            A = np.zeros((m+1, m+1))
+            A = np.zeros((m+1, m+1), dtype=complex)
             A[0,1:] = wj * fj
             A[1:,0] = 1
             np.fill_diagonal(A[1:,1:], zj)
@@ -59,7 +59,7 @@ class BaryFun:
             fj = self.fj
             wj = self.wj
             pol = self.pol()
-            C = np.zeros((m-1, m))
+            C = np.zeros((m-1, m), dtype=complex)
             C = C + pol.reshape((-1,1))
             C = C - zj
             C = 1/C
@@ -79,8 +79,8 @@ class BaryFun:
             Z = np.array([Z])
 
         M = len(Z)
-        N = np.ones(M)
-        D = np.ones(M)
+        N = np.ones(M, dtype=complex)
+        D = np.ones(M, dtype=complex)
 
         keep = np.full(M, True)
         for k in range(m):
@@ -88,7 +88,7 @@ class BaryFun:
             N[ind] = fj[k]
             keep = keep & ~ind
 
-        C = np.zeros((sum(keep), m))
+        C = np.zeros((sum(keep), m), dtype=complex)
         C = C + Z[keep].reshape((-1,1))
         C = C - zj
 
