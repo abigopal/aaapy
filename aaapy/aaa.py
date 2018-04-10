@@ -63,6 +63,11 @@ def aaa(F, Z, **kwargs):
     zj = zj[:m+1]
     fj = fj[:m+1]
 
+    nz = wj != 0
+    zj = zj[nz]
+    fj = fj[nz]
+    wj = wj[nz]
+
     if cleanup:
         r = BaryFun(zj, fj, wj)
         pol = r.pol()
