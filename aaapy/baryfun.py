@@ -74,10 +74,9 @@ class BaryFun:
         fj = self.fj
         wj = self.wj
 
-        scalar = False
-        if np.isscalar(Z):
+        scalar = np.isscalar(Z)
+        if scalar:
             Z = np.array([Z])
-            scalar = True
 
         M = len(Z)
         N = np.ones(M)
