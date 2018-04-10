@@ -73,10 +73,10 @@ def aaa(F, Z, **kwargs):
                 J[Z == zj[k]] = True
             zj = zj[keep]
             fj = fj[keep]
-            C = C[:,0:m]
-            A = SF[J] * C[J,keep] - C[J,keep] * fj[keep]
+            C = 1 / (Z[J].reshape((-1,1)) - zj)
+            A = SF[J] * C - C * fj
             _, _, Vh = la.svd(A)
-            wj = np.conj(Vh[m,:])
+            wj = np.conj(Vh[len(zj)-1,:])
 
     if return_err:
         return BaryFun(zj, fj, wj), errvec 
