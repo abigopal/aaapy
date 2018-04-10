@@ -43,7 +43,7 @@ def aaa(F, Z, **kwargs):
         C[J,m] = 1 / (Z[J] - zj[m])
 
         A = SF[J] * C[J,:m+1] - C[J,:m+1] * fj[:m+1]
-        _, _, Vh = la.svd(A)
+        _, _, Vh = la.svd(A, full_matrices=False)
         wj = np.conj(Vh[m,:])
 
         N = np.copy(F.astype(complex))
