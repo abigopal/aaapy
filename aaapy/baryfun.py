@@ -86,9 +86,9 @@ class BaryFun:
         for k in range(m):
             ind = (Z == zj[k])
             N[ind] = fj[k]
-            keep = keep and ~ind
+            keep = keep & ~ind
 
-        C = np.zeros((len(keep), m))
+        C = np.zeros((sum(keep), m))
         C = C + Z[keep].reshape((-1,1))
         C = C - zj
 
