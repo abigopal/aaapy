@@ -59,7 +59,7 @@ class BaryFun:
             fj = self.fj
             wj = self.wj
             pol = self.pol()
-            C = np.zeros((m-1, m), dtype=complex)
+            C = np.zeros((len(pol), m), dtype=complex)
             C = C + pol.reshape((-1,1))
             C = C - zj
             C = 1/C
