@@ -1,6 +1,5 @@
 from aaapy import * 
 import numpy as np
-from scipy.special import gamma
 import scipy.linalg as la
 
 def test_diff():
