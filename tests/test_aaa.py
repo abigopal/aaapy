@@ -2,6 +2,7 @@ from aaapy import aaa
 import numpy as np
 from scipy.special import gamma
 import scipy.linalg as la
+import warnings
 
 def test_basics():
     tol = 1e-10
@@ -10,7 +11,9 @@ def test_basics():
     r = aaa(F, Z)
     assert np.isnan(r(np.nan))
     m1 = r.m
-    r = aaa(F, Z, mmax=m1-1)
+    with warnings.catch_warnings():
+        warnings.simplefilter('ignore')
+        r = aaa(F, Z, mmax=m1-1)
     assert r.m == m1-1
     r = aaa(F, Z, tol=1e-3)
     assert r.m < m1

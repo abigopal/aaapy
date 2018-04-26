@@ -1,6 +1,7 @@
 import numpy as np
 import scipy.linalg as la
 import scipy.sparse as sm
+from warnings import warn
 
 from aaapy.baryfun import * 
 
@@ -85,6 +86,10 @@ def aaa(F, Z, **kwargs):
             A = SF[J] * C - C * fj
             _, _, Vh = la.svd(A)
             wj = np.conj(Vh[len(zj)-1,:])
+
+    if m == mmax - 1:
+        warn((f'mmax = {mmax} reached.'
+            ' Perhaps try increasing mmax or decreasing tol.'))
 
     if return_err:
         return BaryFun(zj, fj, wj), errvec 
